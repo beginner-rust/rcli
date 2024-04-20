@@ -25,6 +25,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 - TODO Highlight: TODO 高亮
 - vscode-icons: 图标优化
 - YAML: YAML 文件支持
+- test
 
 ### 安装 cargo generate
 
