@@ -17,6 +17,9 @@ pub enum SubCommand {
     Csv(CvsOpts),
     #[command(name = "genpass", about = "generate password")]
     GenPass(GenPassOpts),
+
+    #[command(name = "base64", about = "encode or decode base64")]
+    Base64(Base64SubCommand),
 }
 
 #[derive(Parser, Debug)]
