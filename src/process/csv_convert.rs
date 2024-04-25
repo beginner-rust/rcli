@@ -1,4 +1,4 @@
-use crate::opts::OutputFormat;
+use crate::cli::OutputFormat;
 use anyhow::Result;
 use csv::{Reader, StringRecord};
 use serde_json::Value;

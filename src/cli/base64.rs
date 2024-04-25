@@ -1,34 +1,40 @@
+use std::{fmt, str::FromStr};
+
+use clap::Parser;
+
+use super::verify_input_file;
+
 #[derive(Debug, Parser)]
 pub enum Base64SubCommand {
     #[command(name = "encode", about = "Encode a string to base64")]
-    Encode(Base64Encode),
+    Encode(Base64EncodeOpts),
     #[command(name = "decode", about = "Decode a base64 string")]
-    Decode(Base64Decode),
+    Decode(Base64DecodeOpts),
 }
 
 #[derive(Debug, Parser)]
 pub struct Base64EncodeOpts {
-    #[arg(long, value_parser=verif_input_file, default_value="-" ,help = "Input string")]
+    #[arg(short, long, default_value="-" , value_parser=verify_input_file, help = "Input string")]
     pub input: String,
-    #[arg(long, value_parser=parse_base64_format, default_value="standard" ,help = "Output file")]
+    #[arg(short, long, value_parser=parse_base64_format, default_value="standard" ,help = "Output file")]
     pub format: Base64Format,
 }
 
 #[derive(Debug, Parser)]
 pub struct Base64DecodeOpts {
-    #[arg(long, value_parser=verif_input_file ,help = "Input string")]
+    #[arg(short, long, help = "Input string")]
     pub input: String,
     #[arg(long, value_parser=parse_base64_format ,help = "Output file")]
     pub format: Base64Format,
 }
 
-#[derive(Debug, Parser)]
+#[derive(Debug, Clone, Copy)]
 pub enum Base64Format {
     Standard,
     UrlSafe,
 }
 
-fn parse_base64_format(s: &str) -> Result<Base64Format, String> {
+fn parse_base64_format(format: &str) -> Result<Base64Format, anyhow::Error> {
     format.parse()
 }
 
